@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    /* COMPLETE CSS WITH ALL MODIFICATIONS */
+    body {
+      font-family: 'Google Sans', Roboto, Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #logo-section {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    :root {
+      --bg: #000000;
+      --cyan: #00c2ff;
+      --green: #33ff8c;
+      --orange: #ffc640;
+      --purple: #e54cff;
+      --blur: 1rem;
+      --fs: clamp(3rem, 8vw, 7rem);
+      --ls: clamp(-1.75px, -0.25vw, -3.5px);
+    }
+
+    .content {
+      text-align: center;
+    }
+
+    .title {
+      font-size: var(--fs);
+      font-weight: 800;
+      letter-spacing: var(--ls);
+      position: relative;
+      overflow: hidden;
+      background: var(--bg);
+      margin: 0;
+      color: #fff;
+    }
+
+    .subtitle {
+      color: #fff;
+    }
+
+    .aurora {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      mix-blend-mode: darken;
+      pointer-events: none;
+    }
+
+    .aurora__item {
+      overflow: hidden;
+      position: absolute;
+      width: 60vw;
+      height: 60vw;
+      border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+      filter: blur(var(--blur));
+      mix-blend-mode: overlay;
+    }
+
+    .aurora__item:nth-of-type(1) {
+      background-color: var(--cyan);
+      top: -50%;
+      animation: aurora-border 6s ease-in-out infinite,
+        aurora-1 12s ease-in-out infinite alternate;
+    }
+
+    .aurora__item:nth-of-type(2) {
+      background-color: var(--orange);
+      right: 0;
+      top: 0;
+      animation: aurora-border 6s ease-in-out infinite,
+        aurora-2 12s ease-in-out infinite alternate;
+    }
+
+    .aurora__item:nth-of-type(3) {
+      background-color: var(--green);
+      left: 0;
+      bottom: 0;
+      animation: aurora-border 6s ease-in-out infinite,
+        aurora-3 8s ease-in-out infinite alternate;
+    }
+
+    .aurora__item:nth-of-type(4) {
+      background-color: var(--purple);
+      right: 0;
+      bottom: -50%;
+      animation: aurora-border 6s ease-in-out infinite,
+        aurora-4 24s ease-in-out infinite alternate;
+    }
+
+    @keyframes aurora-1 {
+      0% { top: 0; right: 0; }
+      50% { top: 100%; right: 75%; }
+      75% { top: 100%; right: 25%; }
+      100% { top: 0; right: 0; }
+    }
+
+    @keyframes aurora-2 {
+      0% { top: -50%; left: 0%; }
+      60% { top: 100%; left: 75%; }
+      85% { top: 100%; left: 25%; }
+      100% { top: -50%; left: 0%; }
+    }
+
+    @keyframes aurora-3 {
+      0% { bottom: 0; left: 0; }
+      40% { bottom: 100%; left: 75%; }
+      65% { bottom: 40%; left: 50%; }
+      100% { bottom: 0; left: 0; }
+    }
+
+    @keyframes aurora-4 {
+      0% { bottom: -50%; right: 0; }
+      50% { bottom: 0%; right: 40%; }
+      90% { bottom: 50%; right: 25%; }
+      100% { bottom: -50%; right: 0; }
+    }
+
+    @keyframes aurora-border {
+      0% { border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%; }
+      25% { border-radius: 47% 29% 39% 49% / 61% 19% 66% 26%; }
+      50% { border-radius: 57% 23% 47% 72% / 63% 17% 66% 33%; }
+      75% { border-radius: 28% 49% 29% 100% / 93% 20% 64% 25%; }
+      100% { border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%; }
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      margin-bottom: 20px;
+      width: 80%;
+      max-width: 900px;
+    }
+
+    .section h3 {
+      color: var(--cyan);
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.4em;
+      font-weight: 500;
+    }
+
+    .input-field {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    input[type="checkbox"] {
+      margin: 0;
+      width: 18px;
+      height: 18px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="date"],
+    input[type="time"],
+    select {
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 1em;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 0.9em;
+      transition: all 0.5s ease-in-out;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid transparent;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      font-weight: 500;
+      margin: 4px;
+    }
+
+    #runButton {
+      padding: 12px 25px;
+      font-size: 1em;
+    }
+
+    button:not(.wireframe):hover {
+      background-size: 300% 100%;
+      background-image: linear-gradient(
+        90deg,
+        var(--cyan) 0%,
+        var(--green) 25%,
+        var(--orange) 50%,
+        var(--purple) 75%,
+        var(--cyan) 100%
+      );
+      background-position: 100% 0;
+      animation: gradientSlide 10s infinite linear;
+      animation-delay: 1.5s;
+    }
+
+    #testEmailButton,
+    #clearScheduleButton,
+    #resetCounterButton {
+      background: transparent !important;
+      border: 2px solid currentColor !important;
+      transition: all 0.5s ease-in-out;
+    }
+
+    #testEmailButton { color: var(--green); }
+    #clearScheduleButton { color: var(--orange); }
+    #resetCounterButton { color: var(--orange); }
+
+    @keyframes gradientSlide {
+      0% { background-position: 100% 0; }
+      100% { background-position: 0% 0; }
+    }
+
+    .email-item {
+      background: rgba(241, 243, 244, 0.1);
+      padding: 10px 15px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+    }
+
+    #senderEmailList {
+      margin-bottom: 15px;
+    }
+
+    .counter-box {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .counter-box div {
+      background: rgba(232, 240, 254, 0.1);
+      padding: 12px 15px;
+      border-radius: 8px;
+      color: var(--cyan);
+      font-weight: 500;
+    }
+
+    .confirmation-dialog {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+    }
+
+    #output {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      font-family: monospace;
+      font-size: 0.9em;
+      color: #fff;
+      white-space: pre-wrap;
+      border: none !important;
+    }
+
+    @font-face {
+      font-family: 'Google Sans';
+      src: local('Google Sans'), local('sans-serif');
+    }
+  </style>
+  <script>
+    // COMPLETE JAVASCRIPT IMPLEMENTATION
+    function toggleScheduling() {
+      const isEnabled = document.getElementById('enableScheduling').checked;
+      document.getElementById('scheduleDate').disabled = !isEnabled;
+      document.getElementById('scheduleTime').disabled = !isEnabled;
+      document.getElementById('scheduleButton').disabled = !isEnabled;
+      document.getElementById('clearScheduleButton').disabled = !isEnabled;
+      if (isEnabled) setDefaultScheduleDateTime();
+    }
+
+    function setDefaultScheduleDateTime() {
+      const now = new Date();
+      now.setDate(now.getDate() + 1);
+      const year = String(now.getFullYear());
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      document.getElementById('scheduleDate').value = `${year}-${month}-${day}`;
+      document.getElementById('scheduleTime').value = '11:11';
+    }
+
+    function toggleDelaySettings() {
+      const isEnabled = document.getElementById('addDelay').checked;
+      document.getElementById('randomDelayMin').disabled = !isEnabled;
+      document.getElementById('randomDelayMax').disabled = !isEnabled;
+    }
+
+    function toggleDailyLimit() {
+      const isEnabled = document.getElementById('dailyLimitEnabled').checked;
+      document.getElementById('maxEmailsPerDay').disabled = !isEnabled;
+    }
+
+    function toggleEndRow() {
+      const isEnabled = document.getElementById('endRowEnabled').checked;
+      document.getElementById('endRow').disabled = !isEnabled;
+    }
+
+    function addSenderEmail() {
+      const newEmail = document.getElementById('newSenderEmail').value;
+      if (newEmail) {
+        google.script.run.addSenderEmail(newEmail);
+        document.getElementById('newSenderEmail').value = '';
+        google.script.run.withSuccessHandler(updateSenderEmailList).getSenderEmails();
+      }
+    }
+
+    function updateSenderEmailList(emails) {
+      const emailList = document.getElementById('senderEmailList');
+      emailList.innerHTML = '';
+      emails.forEach(email => {
+        const emailItem = document.createElement('div');
+        emailItem.className = 'email-item';
+        emailItem.innerHTML = `${email} <button onclick="removeSenderEmail('${email}')">Remove</button>`;
+        emailList.appendChild(emailItem);
+      });
+      updateSendAsEmailDropdown(emails);
+    }
+
+    function updateSendAsEmailDropdown(emails) {
+      const sendAsEmail = document.getElementById('sendAsEmail');
+      sendAsEmail.innerHTML = '';
+      emails.forEach(email => {
+        const option = document.createElement('option');
+        option.value = email;
+        option.text = email;
+        sendAsEmail.appendChild(option);
+      });
+    }
+
+    function removeSenderEmail(email) {
+      google.script.run.removeSenderEmail(email);
+      google.script.run.withSuccessHandler(updateSenderEmailList).getSenderEmails();
+    }
+
+    function updatePreview(inputId, previewId) {
+      const columnLetter = document.getElementById(inputId).value.toUpperCase();
+      const column = columnLetter.charCodeAt(0) - 65 + 1;
+      google.script.run.withSuccessHandler(data => {
+        document.getElementById(previewId).innerText = data;
+      }).getPreviewData(column);
+    }
+
+    function showConfirmationDialog(message, callback) {
+      const confirmationDialog = document.createElement('div');
+      confirmationDialog.className = 'confirmation-dialog';
+      confirmationDialog.innerHTML = `
+        <div class="confirmation-content">
+          <p>${message}</p>
+          <button onclick="confirmAction()">Confirm</button>
+          <button onclick="cancelAction()">Cancel</button>
+        </div>
+      `;
+      document.body.appendChild(confirmationDialog);
+
+      window.confirmAction = () => {
+        document.body.removeChild(confirmationDialog);
+        callback();
+      };
+
+      window.cancelAction = () => {
+        document.body.removeChild(confirmationDialog);
+      };
+    }
+
+    function sendTestEmail() {
+      const senderEmail = document.getElementById('sendAsEmail').value;
+      google.script.run.withSuccessHandler(showMessage).sendTestEmail(senderEmail);
+    }
+
+    function showMessage(message) {
+      alert(message);
+    }
+
+    function confirmAndScheduleEmails() {
+      showConfirmationDialog('Are you sure you want to schedule these emails?', scheduleEmails);
+    }
+
+    function scheduleEmails() {
+      document.getElementById('schedulingStatus').style.display = 'block';
+      const emailColumn = document.getElementById('emailColumn').value.toUpperCase().charCodeAt(0) - 65;
+      const subjectColumn = document.getElementById('subjectColumn').value.toUpperCase().charCodeAt(0) - 65;
+      const bodyColumn = document.getElementById('bodyColumn').value.toUpperCase().charCodeAt(0) - 65;
+      const startRow = document.getElementById('startRow').value;
+      const endRow = document.getElementById('endRowEnabled').checked ? 
+        document.getElementById('endRow').value : 
+        SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getLastRow();
+      const senderEmail = document.getElementById('sendAsEmail').value;
+      const dailyLimit = document.getElementById('maxEmailsPerDay').value;
+      const randomDelayMin = document.getElementById('randomDelayMin').value;
+      const randomDelayMax = document.getElementById('randomDelayMax').value;
+      const scheduleDate = document.getElementById('scheduleDate').value;
+      const scheduleTime = document.getElementById('scheduleTime').value;
+
+      google.script.run.withSuccessHandler(showMessage)
+        .scheduleEmails(emailColumn, subjectColumn, bodyColumn, startRow, endRow, 
+          senderEmail, dailyLimit, randomDelayMin, randomDelayMax, scheduleDate, scheduleTime);
+    }
+
+    function clearScheduledEmails() {
+      google.script.run.withSuccessHandler(showMessage).clearScheduledEmails();
+    }
+
+    function confirmAndRunEmailProcess() {
+      showConfirmationDialog('Are you sure you want to run this email process?', runEmailProcess);
+    }
+
+    function runEmailProcess() {
+      document.getElementById('processingStatus').style.display = 'block';
+      const emailColumn = document.getElementById('emailColumn').value.toUpperCase().charCodeAt(0) - 65;
+      const subjectColumn = document.getElementById('subjectColumn').value.toUpperCase().charCodeAt(0) - 65;
+      const bodyColumn = document.getElementById('bodyColumn').value.toUpperCase().charCodeAt(0) - 65;
+      const startRow = document.getElementById('startRow').value;
+      const endRow = document.getElementById('endRowEnabled').checked ? 
+        document.getElementById('endRow').value : 
+        SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getLastRow();
+      const senderEmail = document.getElementById('sendAsEmail').value;
+      const dailyLimit = document.getElementById('maxEmailsPerDay').value;
+      const randomDelayMin = document.getElementById('randomDelayMin').value;
+      const randomDelayMax = document.getElementById('randomDelayMax').value;
+      const actionType = document.getElementById('actionType').value;
+
+      if (actionType === 'send') {
+        google.script.run.withSuccessHandler(updateCounters)
+          .sendEmails(emailColumn, subjectColumn, bodyColumn, startRow, endRow, 
+            senderEmail, dailyLimit, randomDelayMin, randomDelayMax);
+      } else {
+        google.script.run.withSuccessHandler(updateCounters)
+          .saveDrafts(emailColumn, subjectColumn, bodyColumn, startRow, endRow, 
+            senderEmail, dailyLimit, randomDelayMin, randomDelayMax);
+      }
+    }
+
+    function updateCounters(counters) {
+      if (counters.message.includes('Error')) {
+        alert(counters.message);
+      } else {
+        document.getElementById('sentCounter').innerText = counters.sentCount || 0;
+        document.getElementById('draftCounter').innerText = counters.draftCount || 0;
+        document.getElementById('dailySentCounter').innerText = counters.dailySentCount || 0;
+        document.getElementById('processingStatus').style.display = 'none';
+      }
+    }
+
+    function resetCounters() {
+      document.getElementById('sentCounter').innerText = '0';
+      document.getElementById('draftCounter').innerText = '0';
+      document.getElementById('dailySentCounter').innerText = '0';
+    }
+
+    function initialize() {
+      google.script.run.withSuccessHandler(updateSenderEmailList).getSenderEmails();
+      google.script.run.withSuccessHandler(updateSendAsEmailDropdown).getSendAsEmails();
+      setDefaultScheduleDateTime();
+      google.script.run.withSuccessHandler(userEmail => {
+        document.getElementById('newSenderEmail').value = userEmail;
+      }).getCurrentUserEmail();
+    }
+
+    document.addEventListener('DOMContentLoaded', initialize);
+  </script>
+</head>
+<body>
+  <!-- COMPLETE HTML STRUCTURE -->
+  <div id="logo-section">
+    <div class="content">
+      <h1 class="title">Sheet Draft
+        <div class="aurora">
+          <div class="aurora__item"></div>
+          <div class="aurora__item"></div>
+          <div class="aurora__item"></div>
+          <div class="aurora__item"></div>
+        </div>
+      </h1>
+      <p class="subtitle">Google Sheets Auto Email Drafter</p>
+    </div>
+  </div>
+
+  <div class="section" id="senderEmailConfig">
+    <h3>Sender Email Configuration</h3>
+    <div id="senderEmailList"></div>
+    <div class="input-field">
+      <label for="newSenderEmail">Add Sender Email:</label>
+      <input type="email" id="newSenderEmail">
+      <button id="addSenderEmailButton" onclick="addSenderEmail()">Add Email</button>
+    </div>
+    <div class="input-field">
+      <label for="sendAsEmail">Send As:</label>
+      <select id="sendAsEmail"></select>
+    </div>
+  </div>
+
+  <div class="section" id="columnConfig">
+    <h3>Column Configuration</h3>
+    <div class="input-field">
+      <label for="emailColumn">Email Column (e.g., A):</label>
+      <input type="text" id="emailColumn" oninput="updatePreview('emailColumn', 'emailPreview')">
+      <span id="emailPreview"></span>
+    </div>
+    <div class="input-field">
+      <label for="subjectColumn">Subject Column (e.g., B):</label>
+      <input type="text" id="subjectColumn" oninput="updatePreview('subjectColumn', 'subjectPreview')">
+      <span id="subjectPreview"></span>
+    </div>
+    <div class="input-field">
+      <label for="bodyColumn">Body Column (e.g., D):</label>
+      <input type="text" id="bodyColumn" oninput="updatePreview('bodyColumn', 'bodyPreview')">
+      <span id="bodyPreview"></span>
+    </div>
+  </div>
+
+  <div class="section" id="scheduling">
+    <h3>Scheduling</h3>
+    <div class="checkbox-container">
+      <input type="checkbox" id="enableScheduling" onchange="toggleScheduling()">
+      <label for="enableScheduling">Schedule Email Sending</label>
+    </div>
+    <div class="input-field">
+      <label for="scheduleDate">Schedule Date:</label>
+      <input type="date" id="scheduleDate" disabled>
+    </div>
+    <div class="input-field">
+      <label for="scheduleTime">Schedule Time (HH:mm - 24hr format):</label>
+      <input type="time" id="scheduleTime" disabled>
+    </div>
+    <button id="scheduleButton" onclick="confirmAndScheduleEmails()" disabled>Schedule Emails</button>
+    <button id="clearScheduleButton" onclick="clearScheduledEmails()" disabled>Clear Schedule</button>
+    <div id="scheduleStatus"></div>
+  </div>
+
+  <div class="section" id="delaySettings">
+    <h3>Delay Settings</h3>
+    <div class="checkbox-container">
+      <input type="checkbox" id="addDelay" onchange="toggleDelaySettings()">
+      <label for="addDelay">Add Random Delay</label>
+    </div>
+    <div class="input-field">
+      <label for="randomDelayMin">Min Delay (seconds):</label>
+      <input type="number" id="randomDelayMin" disabled>
+    </div>
+    <div class="input-field">
+      <label for="randomDelayMax">Max Delay (seconds):</label>
+      <input type="number" id="randomDelayMax" disabled>
+    </div>
+  </div>
+
+  <div class="section" id="dailySendingLimit">
+    <h3>Daily Sending Limit</h3>
+    <div class="checkbox-container">
+      <input type="checkbox" id="dailyLimitEnabled" onchange="toggleDailyLimit()" checked>
+      <label for="dailyLimitEnabled">Enable Daily Limit</label>
+    </div>
+    <div class="input-field">
+      <label for="maxEmailsPerDay">Max Emails per Day (50-2000, Free Gmail ~500):</label>
+      <input type="number" id="maxEmailsPerDay" value="490" disabled>
+    </div>
+  </div>
+
+  <div class="section" id="actionTypeSelection">
+    <h3>Action</h3>
+    <div class="input-field">
+      <label for="actionType">Action:</label>
+      <select id="actionType">
+        <option value="draft">Save as Drafts</option>
+        <option value="send">Send Emails</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="section" id="startRowConfig">
+    <h3>Start Row Configuration</h3>
+    <div class="input-field">
+      <label for="startRow">Start Row (Default is 2):</label>
+      <input type="number" id="startRow" value="2">
+    </div>
+    <div class="checkbox-container">
+      <input type="checkbox" id="endRowEnabled" onchange="toggleEndRow()">
+      <label for="endRowEnabled">Enable End Row</label>
+    </div>
+    <div class="input-field">
+      <label for="endRow">End Row (Optional):</label>
+      <input type="number" id="endRow" disabled>
+    </div>
+  </div>
+
+  <div class="section" id="emailProcessing">
+    <h3>Email Processing and Testing</h3>
+    <button id="runButton" onclick="confirmAndRunEmailProcess()">Run Email Process</button>
+    <button id="testEmailButton" onclick="sendTestEmail()">Send Test Email</button>
+  </div>
+
+  <div class="section" id="emailStatus">
+    <h3>Email Status</h3>
+    <div class="counter-box">
+      <div>Sent Emails: <span id="sentCounter">0</span></div>
+      <div>Draft Emails: <span id="draftCounter">0</span></div>
+    </div>
+    <div class="counter-box">
+      <div>Daily Emails Sent: <span id="dailySentCounter">0</span></div>
+    </div>
+    <button id="resetCounterButton" onclick="resetCounters()">Reset All Counters</button>
+    <div id="processingStatus" style="display: none;">Processing Emails...</div>
+    <div id="schedulingStatus" style="display: none;">Scheduling Your Emails...</div>
+  </div>
+
+  <div id="output"></div>
+</body>
+</html>
